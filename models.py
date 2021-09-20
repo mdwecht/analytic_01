@@ -1,11 +1,28 @@
 from django.db import models
 
-# Create your models here.
-class Params(models.Model):
-    name = models.CharField(max_length=20)
-    var_01 = models.IntegerField(default=0)
-    var_02 = models.IntegerField(default=0)
-    var_03 = models.IntegerField(default=0)
+
+class Job(models.Model):
+    '''
+    DSAE Fields Common to all Jobs:
+    '''
+    name = models.CharField(max_length=40)
+    type = models.CharField(max_length=40)
+    state = models.CharField(max_length=40)
+    period = models.IntegerField(default=3600)
+    last_ts = models.DateTimeField(auto_now_add=True)
+    created_ts = models.DateTimeField(auto_now_add=True)
+    updated_ts = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    '''
+    DSAE Fields Specific to 'analytic_01' Job Type:
+    '''
+    host = models.CharField(max_length=20)
+    ip = models.CharField(max_length=20, default='0.0.0.0')
+    ports_min = models.IntegerField(default=150)
+    ports_max = models.IntegerField(default=300)
+    search = models.CharField(max_length=20)
+    sid = models.CharField(max_length=20)
+    session = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
